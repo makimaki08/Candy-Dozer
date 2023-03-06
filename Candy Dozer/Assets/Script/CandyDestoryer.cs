@@ -6,6 +6,8 @@ public class CandyDestoryer : MonoBehaviour
 {
     public CandyManager candyManager;
     public int reward;
+    public GameObject effectPrefab; // エフェクトプレハブプロパティ
+    public Vector3 effectRotation; // エフェクトローテーションプロパティ
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,6 +18,16 @@ public class CandyDestoryer : MonoBehaviour
 
             // オブジェクトを削除
             Destroy(other.gameObject);
+
+            // エフェクトプレハブの設定チェック
+            if (effectPrefab != null)
+            {
+                // Candyのポジションにエフェクト生成
+                Instantiate(
+                    effectPrefab,
+                    other.transform.position,
+                    Quaternion.Euler(effectRotation));
+            }
         }        
     }
 }
